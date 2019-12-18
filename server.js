@@ -43,7 +43,7 @@ server.post('/accounts', (req, res) => {
   }
 })
 
-// PUT update an account
+// PUT an account
 server.put('/accounts/:id', (req, res) => {
   const { name, budget } = req.body
   const { id } = req.params
@@ -55,7 +55,6 @@ server.put('/accounts/:id', (req, res) => {
         if (!account.length) {
           res.status(404).json({ message: 'Could not find the account with the specified ID.' })
         } else {
-          // res.status(200).json(account)
           db('accounts').where({ id }).update({ name, budget })
             .then(numOfAccountsUpdated => res.status(200).json({ numOfAccountsUpdated, id }))
             .catch(err => res.status(500).json({ message: 'Failed to update the account in the database.' }))
